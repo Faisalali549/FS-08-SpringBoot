@@ -2,8 +2,10 @@ package com.example.todo.controller;
 
 import com.example.todo.model.Todo;
 import com.example.todo.service.ITodoService;
-import com.example.todo.service.TodoService;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,11 +20,39 @@ public class TodoController {
 
     // http://localhost:8080/api/v1/todo-app/add-todo
     @PostMapping("/add-todo")
-    public void addTodo(@RequestBody Todo todo) {
-        todoService.addTodo(todo);
+    public ResponseEntity<String> addTodo(@RequestBody String todoData) {
+        JSONObject object = new JSONObject(todoData);
+        JSONObject error = validateTodo(object);
+        if(error.isEmpty()) {
+            Todo todo = setTodo(object);
+            int id = todoService.addTodo(todo);
+            return new ResponseEntity<>("todo saved with id " + id, HttpStatus.CREATED);
+        }
+        else {
+            return new ResponseEntity<>(error.toString(), HttpStatus.BAD_REQUEST);
+        }
     }
 
-//  http://localhost:8080/api/v1/todo-app/find-todo/id/5
+    private Todo setTodo(JSONObject object) {
+        Todo todo = new Todo();
+        todo.setTitle(object.getString("title"));
+        todo.setStatus(object.getBoolean("status"));
+
+        return todo;
+    }
+
+    private JSONObject validateTodo(JSONObject object) {
+        JSONObject error = new JSONObject();
+        if(!object.has("title")) {
+            error.put("title", "missing parameter");
+        }
+        if (!object.has("status")) {
+            error.put("status", "missing parameter");
+        }
+        return error;
+    }
+
+    //  http://localhost:8080/api/v1/todo-app/find-todo/id/5
     @GetMapping("/find-todo/id/{id}")
     public Todo findTodoById(@PathVariable int id) {
         return todoService.findById(id);

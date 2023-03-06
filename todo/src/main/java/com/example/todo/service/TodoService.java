@@ -25,8 +25,9 @@ public class TodoService implements ITodoService {
         return todoRepository.findById(id).get();
     }
     @Override
-    public void addTodo(Todo todo) {
-        todoRepository.save(todo);
+    public int addTodo(Todo todo) {
+        Todo todo1 = todoRepository.save(todo);
+        return todo1.getId();
     }
     @Override
     public void deleteTodo(int id) {
