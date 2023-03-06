@@ -2,7 +2,6 @@ package com.example.doctor.controller;
 
 import com.example.doctor.model.Doctor;
 import com.example.doctor.service.DoctorService;
-import com.mongodb.lang.Nullable;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,7 @@ public class DoctorController {
     }
 
     @GetMapping(value = "/doctor")
-    public List<Doctor> getDoctor(@Nullable @RequestParam String doctorId) {
+    public List<Doctor> getDoctor(@RequestParam String doctorId) {
         return service.getDoctor(doctorId);
     }
 

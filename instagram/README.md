@@ -1,7 +1,6 @@
 # INSTAGRAM App In SpringBoot
 
-In this project we are managing our daily task like how many tasks are pending and how many tasks are done
-
+In this project User can create account on social media platform and can post some stuffs.
 
 ## Project Links
 

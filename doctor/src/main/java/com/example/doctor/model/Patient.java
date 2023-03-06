@@ -1,10 +1,16 @@
 package com.example.doctor.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tbl_patient")
 public class Patient {
     @Id
@@ -32,68 +38,4 @@ public class Patient {
     @JoinColumn(name = "doctor_id")
     @ManyToOne
     private Doctor doctorId;
-
-    public Integer getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(Integer patientId) {
-        this.patientId = patientId;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getDiseaseType() {
-        return diseaseType;
-    }
-
-    public void setDiseaseType(String diseaseType) {
-        this.diseaseType = diseaseType;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public Timestamp getAdmitDate() {
-        return admitDate;
-    }
-
-    public void setAdmitDate(Timestamp admitDate) {
-        this.admitDate = admitDate;
-    }
-
-    public Doctor getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Doctor doctorId) {
-        this.doctorId = doctorId;
-    }
 }
